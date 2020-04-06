@@ -32,7 +32,9 @@ app.get('/', (req, res) => {
 });
 
 const messagesRouter = require('./routes/messages');
+const repliesRouter = require('./routes/replies');
 app.use('/messages', messagesRouter);
+app.use('/replies', repliesRouter);
 
 
 // catch 404 and forward to error handler

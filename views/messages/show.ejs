@@ -6,8 +6,19 @@
     <title><%= message.title %> - メッセージボード</title>
 </head>
 <body>
-    <h1><%= message.title %></h1>
-    <p><%= message.content %></p>
+    <div>
+        <h1><%= message.title %></h1>
+        <p><%= message.content %></p>
+    </div>
+    <div>
+        <h2>返信する</h2>
+        <form action="/replies" method="post">
+            <input type="hidden" name="message_id" value="<%= message.id %>">
+            <input type="text" name="content">
+            <input type="submit" value="送信">
+        </form>
+    </div>
+
     <a href="/messages">
         <button>戻る</button>
     </a>
