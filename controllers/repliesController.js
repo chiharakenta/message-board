@@ -6,6 +6,6 @@ exports.create = (req, res) => {
     content: req.body.content
   };
   db.reply.create(params).then((results) => {
-    res.redirect('/messages');
+    res.redirect(`/messages/${req.body.message_id}`);
   });
 }
