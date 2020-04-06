@@ -9,6 +9,11 @@
     <div>
         <h1><%= message.title %></h1>
         <p><%= message.content %></p>
+        <ul>
+            <% message.replies.map((reply) => { %>
+                <li><%= reply.content %></li>
+            <% }) %>
+        </ul>
     </div>
     <div>
         <h2>返信する</h2>

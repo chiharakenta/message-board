@@ -1,7 +1,17 @@
 const db = require('../models/index');
 
 exports.index = (req, res) => {
-  db.message.findAll().then((results) => {
+  const options = {
+    include: [{
+      model: db.reply
+    }],
+    order: [[
+      db.reply,
+      'created_at',
+      'asc'
+    ]]
+  };
+  db.message.findAll(options).then((results) => {
     res.render('messages/index', {messages: results} );
   });
 }
@@ -21,9 +31,17 @@ exports.create = (req, res) => {
 }
 
 exports.show = (req, res) => {
-  db.message.findByPk(req.params.id).then((results) => {
-    // results.createdAt = formatDate(results.createdAt);
-    // results.updated_at = formatDate(results.updated_at);
+  const options = {
+    include: [{
+      model: db.reply
+    }],
+    order: [[
+      db.reply,
+      'created_at',
+      'asc'
+    ]]
+  };
+  db.message.findByPk(req.params.id, options).then((results) => {
     res.render('messages/show', {message: results} );
   });
 }

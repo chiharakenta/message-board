@@ -15,6 +15,11 @@
             <li>
                 <h2><%= message.title %></h2>
                 <p><%= message.content %></p>
+                <ul>
+                    <% message.replies.map((reply) => { %>
+                        <li><%= reply.content %></li>
+                    <% }) %>
+                </ul>
                 <a href="/messages/<%= message.id %>">詳細</a>
                 <a href="/messages/<%= message.id %>/edit">編集</a>
                 <form action="/messages/<%= message.id %>" method="post">
