@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
     underscored: true,
   });
   message.associate = function(models) {
-    // associations can be defined here
+    message.hasMany(models.reply);
   };
   return message;
 };
