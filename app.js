@@ -16,6 +16,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // settings for method-override
+var methodOverride = require('method-override')
 app.use(methodOverride(function (req, res) {
   if (req.body && typeof req.body === 'object' && '_method' in req.body) {
     // look in urlencoded POST bodies and delete it
@@ -24,6 +25,15 @@ app.use(methodOverride(function (req, res) {
     return method
   }
 }))
+
+// routing
+app.get('/', (req, res) => {
+  res.redirect('/messages');
+});
+
+const messagesRouter = require('./routes/messages');
+app.use('/messages', messagesRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

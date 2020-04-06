@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>メッセージボード</title>
+</head>
+<body>
+    <h1>メッセージボード</h1>
+    <a href="/messages/new">
+        <button>投稿する</button>
+    </a>
+    <ul>
+        <% messages.map((message) => { %>
+            <li>
+                <h2><%= message.title %></h2>
+                <p><%= message.content %></p>
+                <a href="/messages/<%= message.id %>">詳細</a>
+                <a href="/messages/<%= message.id %>/edit">編集</a>
+                <form action="/messages/<%= message.id %>" method="post">
+                    <input type="hidden" name="_method" value="delete">
+                    <input type="submit" value="削除">
+                </form>
+            </li>
+        <% }) %>
+    </ul>
+</body>
+</html>

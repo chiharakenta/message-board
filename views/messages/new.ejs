@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新規作成 - メッセージボード</title>
+</head>
+<body>
+    <h1>メッセージ投稿</h1>
+    <form action="/messages" method="post">
+        <div>
+            <label for="title">タイトル</label>
+            <input type="text" name="title">
+        </div>
+        <div>
+            <label for="content">内容</label>
+            <input type="text" name="content">
+        </div>
+        <input type="submit" value="作成">
+    </form>
+</body>
+</html>

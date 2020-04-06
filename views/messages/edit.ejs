@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>編集 - メッセージボード</title>
+</head>
+<body>
+    <h1>メッセージ更新</h1>
+    <form action="/messages/<%= message.id %>" method="post">
+        <input type="hidden" name="_method" value="put">
+        <div>
+            <label for="title">タイトル</label>
+            <input type="text" name="title" value="<%= message.title %>">
+        </div>
+        <div>
+            <label for="content">内容</label>
+            <input type="text" name="content" value="<%= message.content %>">
+        </div>
+        <input type="submit" value="更新">
+    </form>
+</body>
+</html>
