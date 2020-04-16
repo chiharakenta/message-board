@@ -8,8 +8,14 @@
 <body>
     <h1>メッセージ投稿</h1>
     <form action="/messages" method="post">
-        <label for="content">メッセージ内容</label>
-        <input type="text" name="content">
+        <div>
+            <label for="title">タイトル</label>
+            <input type="text" name="title">
+        </div>
+        <div>
+            <label for="content">内容</label>
+            <input type="text" name="content">
+        </div>
         <input type="submit" value="作成">
     </form>
 </body>

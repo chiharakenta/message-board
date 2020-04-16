@@ -6,15 +6,15 @@
     <title><%= message.title %> - メッセージボード</title>
 </head>
 <body>
-    <h1>メッセージ</h1>
-    <ul>
-        <li><%= message.content %></li>
+    <div>
+        <h1><%= message.title %></h1>
+        <p><%= message.content %></p>
         <ul>
             <% message.replies.map((reply) => { %>
                 <li><%= reply.content %></li>
             <% }) %>
         </ul>
-    </ul>
+    </div>
     <div>
         <h2>返信する</h2>
         <form action="/replies" method="post">

@@ -22,6 +22,7 @@ exports.new = (req, res) => {
 
 exports.create = (req, res) => {
   const params = {
+    title: req.body.title,
     content: req.body.content
   };
   db.message.create(params).then((results) => {
@@ -53,6 +54,7 @@ exports.edit = (req, res) => {
 
 exports.update = (req, res) => {
   const params = {
+    title: req.body.title,
     content: req.body.content
   };
   const options = {
