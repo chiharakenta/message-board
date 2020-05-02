@@ -26,7 +26,6 @@ app.use(session({
   saveUninitialized: true,
   cookie: { secure: true }
 }));
-
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -91,9 +90,11 @@ app.get('/', (req, res) => {
 const sessionsRouter = require('./routes/sessions');
 const messagesRouter = require('./routes/messages');
 const repliesRouter = require('./routes/replies');
+const usersRouter = require('./routes/users');
 app.use('/', sessionsRouter);
 app.use('/messages', messagesRouter);
 app.use('/replies', repliesRouter);
+app.use('/users', usersRouter);
 
 app.get('/user', (req, res) => {
   db.user.findOne({ where: { name: 'chihaken', password: 'chhkn6318' } }).then((results) => {

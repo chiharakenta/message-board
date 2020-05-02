@@ -11,6 +11,7 @@ exports.index = (req, res) => {
       'asc'
     ]]
   };
+  console.log(req);
   db.message.findAll(options).then((results) => {
     res.render('messages/index', {messages: results} );
   });
