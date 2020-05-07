@@ -51,16 +51,15 @@ app.use(passport.session());
 
 const db = require('./models/index');
 
-passport.serializeUser(function(user, done) {
+passport.serializeUser((user, done) => {
   done(null, user.id);
 });
 
-passport.deserializeUser(function(id, done) {
+passport.deserializeUser((id, done) => {
   db.user.findByPk(id)
     .then((results) => {
       done(null, results);
-    })
-    .catch((error) => {
+    }, (error) => {
       done(error, null);
     });
 });
@@ -84,9 +83,11 @@ app.get('/', (req, res) => {
 const sessionsRouter = require('./routes/sessions');
 const messagesRouter = require('./routes/messages');
 const repliesRouter = require('./routes/replies');
+const usersRouter = require('./routes/users');
 app.use('/', sessionsRouter);
 app.use('/messages', messagesRouter);
 app.use('/replies', repliesRouter);
+app.use('/users', usersRouter);
 
 
 // catch 404 and forward to error handler

@@ -7,3 +7,8 @@ exports.new = (req, res) => {
 exports.create = passport.authenticate('local', {
   successRedirect: '/messages', failureRedirect: '/login'
 });
+
+exports.delete = (req, res) => {
+  req.logout();
+  res.redirect('/messages');
+}

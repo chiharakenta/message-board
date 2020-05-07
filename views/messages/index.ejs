@@ -7,7 +7,15 @@
 </head>
 <body>
     <header>
-        <a href="/login">ログイン</a>
+        <% if (!loggedIn) { %>
+            <a href="/login">ログイン</a>
+            <a href="/users/new">新規登録</a>
+        <% } else { %>
+            <form action="/logout" method="post">
+                <input type="hidden" name="_method" value="delete">
+                <input type="submit" value="ログアウト">
+            </form>
+        <% } %> 
     </header>
     <h1>メッセージボード</h1>
     <a href="/messages/new">
@@ -29,6 +37,7 @@
                     <input type="hidden" name="_method" value="delete">
                     <input type="submit" value="削除">
                 </form>
+                <p>投稿者: <%= message.user.name %></p>
             </li>
         <% }) %>
     </ul>
