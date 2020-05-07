@@ -1,12 +1,13 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var app = express();
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const app = express();
 
-var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const bcrypt = require('bcrypt');
 
 passport.use(new LocalStrategy(
   function(username, password, done) {
@@ -15,9 +16,11 @@ passport.use(new LocalStrategy(
         if (!user) {
           return done(null, false, { message: 'Incorrect username.' });
         }
-        if (user.password !== password) {
-          return done(null, false, { message: 'Incorrect password.' });
-        }
+        bcrypt.compare(password, user.password, (error, result) => {
+          if(!result) {
+            return done(null, false, { message: 'Incorrect password.' });
+          }
+        });
         return done(null, user);
       })
       .catch((error) => {

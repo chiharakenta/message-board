@@ -8,8 +8,14 @@
 <body>
     <h1>ユーザー登録</h1>
     <form action="/users" method="post">
-        <input type="text" name="userName">
-        <input type="text" name="userPassword">
+        <div>
+            <label for="userName">ユーザー名</label>
+            <input type="text" name="userName">
+        </div>
+        <div>
+            <label for="userPassword">パスワード</label>
+            <input type="password" name="userPassword">
+        </div>
         <input type="submit" value="送信">
     </form>
 </body>
