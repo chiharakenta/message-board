@@ -2,30 +2,45 @@ const db = require('../models/index');
 
 exports.index = (req, res) => {
   const options = {
-    include: [{
-      model: db.reply
-    }],
+    include: [
+      {
+        model: db.reply
+      },
+      {
+        model: db.user
+      }
+    ],
     order: [[
       db.reply,
       'created_at',
       'asc'
     ]]
   };
-  console.log(req.user);
   db.message.findAll(options).then((results) => {
-    res.render('messages/index', {messages: results} );
+    res.render('messages/index', {messages: results, loggedIn: !!req.user} );
   });
 }
 
 exports.new = (req, res) => {
+  if (!req.user) {
+    res.redirect('/login');
+    return;
+  }
   res.render('messages/new');
 }
 
 exports.create = (req, res) => {
+  if (!req.user) {
+    res.redirect('/login');
+    return;
+  }
+  console.log(req.user.id);
   const params = {
+    user_id: String(req.user.id),
     title: req.body.title,
     content: req.body.content
   };
+  console.log(params);
   db.message.create(params).then((results) => {
     res.redirect('/messages');
   });
