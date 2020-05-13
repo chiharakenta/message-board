@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const messagesController = require('../controllers/messagesController');
+const db = require('../models/index');
 
 // 一覧表示ページ
 router.get('/', (req, res) => {
@@ -35,6 +36,23 @@ router.put('/:id', (req, res) => {
 // 削除
 router.delete('/:id', (req, res) => {
   messagesController.delete(req, res);
+});
+
+router.post('/like', (req, res) => {
+  if (!req.user) {
+    res.redirect('/login');
+    return;
+  }
+  const params = {
+    user_id: req.user.id,
+    message_id: req.body.messageId
+  }
+  const options = {
+    fields: ['user_id', 'message_id']
+  };
+  db.user_message.create(params, options).then((results) => {
+    res.redirect('/messages');
+  });
 });
 
 module.exports = router;
