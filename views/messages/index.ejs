@@ -24,7 +24,6 @@
     <ul>
         <% messages.map((message) => { %>
             <li>
-                <h2><%= message.title %></h2>
                 <p><%= message.content %></p>
                 <ul>
                     <% message.replies.map((reply) => { %>

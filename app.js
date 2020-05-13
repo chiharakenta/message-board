@@ -11,12 +11,13 @@ const bcrypt = require('bcrypt');
 
 passport.use(new LocalStrategy(
   function(username, password, done) {
-    db.user.findOne({ username: username, password: password })
+    db.user.findOne({ username: username })
       .then((user) => {
         if (!user) {
           return done(null, false, { message: 'Incorrect username.' });
         }
         bcrypt.compare(password, user.password, (error, result) => {
+          console.log(result);
           if(!result) {
             return done(null, false, { message: 'Incorrect password.' });
           }

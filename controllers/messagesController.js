@@ -34,13 +34,10 @@ exports.create = (req, res) => {
     res.redirect('/login');
     return;
   }
-  console.log(req.user.id);
   const params = {
     user_id: String(req.user.id),
-    title: req.body.title,
     content: req.body.content
   };
-  console.log(params);
   db.message.create(params).then((results) => {
     res.redirect('/messages');
   });
