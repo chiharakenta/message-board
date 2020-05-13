@@ -9,6 +9,7 @@ module.exports = (sequelize, DataTypes) => {
   message.associate = function(models) {
     message.belongsTo(models.user);
     message.hasMany(models.reply);
+    message.belongsToMany(models.user, { through: models.user_message } );
   };
   return message;
 };
