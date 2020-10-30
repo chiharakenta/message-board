@@ -1,6 +1,10 @@
 const db = require('../models/index');
 
 exports.index = (req, res) => {
+  if(!req.user) {
+    return res.redirect('/signin');
+  }
+
   const options = {
     include: [{
       model: db.reply
@@ -12,7 +16,7 @@ exports.index = (req, res) => {
     ]]
   };
   db.message.findAll(options).then((results) => {
-    res.render('messages/index', {messages: results} );
+    res.render('messages/index', { messages: results, user: req.user } );
   });
 }
 
