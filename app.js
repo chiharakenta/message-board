@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+const bcrypt = require('bcrypt');
 var app = express();
 
 // view engine setup
@@ -52,14 +53,16 @@ passport.use(new LocalStrategy(
       }
     })
     .then(function(user) {
-      console.log(user);
-
       if (!user) {
         return done(null, false, { message: '入力された名前のユーザーは存在しません。' });
       }
-      if (user.password != password) {
-        return done(null, false, { message: 'パスワードが一致しません。' });
-      }
+
+      bcrypt.compare(password, user.password, function(error, result) {
+        if(!result) {
+          return done(null, false, { message: 'パスワードが一致しません。' });
+        }
+      });
+
       return done(null, user);
     })
     .catch(function(err) {
@@ -94,12 +97,14 @@ app.get('/signup', function(req, res) {
 });
 
 app.post('/signup', function(req, res) {
-  const values = {
-    name: req.body.name,
-    password: req.body.password
-  };
-  db.user.create(values).then(function(results) {
-    res.redirect('/messages');
+  bcrypt.hash(req.body.password, 10, (error, hashedPassword) => {
+    const values = {
+      name: req.body.name,
+      password: hashedPassword
+    };
+    db.user.create(values).then((results) => {
+      res.redirect('/messages');
+    });
   });
 });
 
