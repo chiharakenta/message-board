@@ -17,7 +17,7 @@
                 <a href="/login">ログイン</a>
                 <a href="/users/new">新規登録</a>
             <% } else { %>
-                <p><%= currentUser.name %>でログイン中</p>
+                <p><a href="/users/<%= currentUser.id %>"><%= currentUser.name %></a>でログイン中</p>
                 <form action="/logout" method="post">
                     <input type="hidden" name="_method" value="delete">
                     <input type="submit" value="ログアウト">
