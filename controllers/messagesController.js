@@ -30,7 +30,7 @@ exports.new = (req, res) => {
     res.redirect('/login');
     return;
   }
-  res.render('messages/new');
+  res.render('messages/new', { currentUser: req.user });
 }
 
 exports.create = (req, res) => {

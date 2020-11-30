@@ -21,7 +21,7 @@ exports.show = (req, res) => {
   const options = {
     include: [
       {
-        model: db.message,
+        model: db.message
       }
     ]
   };
@@ -36,6 +36,7 @@ exports.likes = (req, res) => {
       {
         model: db.message,
         through: db.user_message,
+        as: 'likes'
       }
     ]
   };

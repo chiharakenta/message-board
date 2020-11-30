@@ -7,8 +7,8 @@ module.exports = (sequelize, DataTypes) => {
     underscored: true,
   });
   user.associate = function(models) {
+    user.belongsToMany(models.message, { through: models.user_message, as: 'likes' });
     user.hasMany(models.message);
-    user.belongsToMany(models.message, { through: models.user_message } );
   };
   return user;
 };
