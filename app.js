@@ -32,7 +32,7 @@ app.use(passport.session());
 const db = require('./models/index');
 
 passport.serializeUser((user, done) => {
-  done(null, user.id)
+  done(null, user.id);
 });
 
 passport.deserializeUser((id, done) => {
@@ -87,10 +87,14 @@ app.get('/', (req, res) => {
   return res.redirect('/messages');
 });
 
+const sessionsRouter = require('./routes/sessions');
 const messagesRouter = require('./routes/messages');
 const repliesRouter = require('./routes/replies');
+const usersRouter = require('./routes/users');
+app.use('/', sessionsRouter);
 app.use('/messages', messagesRouter);
 app.use('/replies', repliesRouter);
+app.use('/users', usersRouter);
 
 app.get('/signup', function(req, res) {
   res.render('users/signup');

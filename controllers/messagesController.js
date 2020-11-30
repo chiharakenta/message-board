@@ -6,9 +6,14 @@ exports.index = (req, res) => {
   }
 
   const options = {
-    include: [{
-      model: db.reply
-    }],
+    include: [
+      {
+        model: db.reply
+      },
+      {
+        model: db.user
+      }
+    ],
     order: [[
       db.reply,
       'created_at',
@@ -16,17 +21,25 @@ exports.index = (req, res) => {
     ]]
   };
   db.message.findAll(options).then((results) => {
-    res.render('messages/index', { messages: results, user: req.user } );
+    res.render('messages/index', { messages: results, currentUser: req.user } );
   });
 }
 
 exports.new = (req, res) => {
+  if (!req.user) {
+    res.redirect('/login');
+    return;
+  }
   res.render('messages/new');
 }
 
 exports.create = (req, res) => {
+  if (!req.user) {
+    res.redirect('/login');
+    return;
+  }
   const params = {
-    title: req.body.title,
+    user_id: String(req.user.id),
     content: req.body.content
   };
   db.message.create(params).then((results) => {
