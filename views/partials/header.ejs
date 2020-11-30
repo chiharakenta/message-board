@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>メッセージボード</title>
+</head>
+<body>
+    <header style="overflow: hidden;">
+        <div style="float: left;">
+            <a href="/">
+                <h1>メッセージボード</h1>
+            </a>
+        </div>
+        <div style="float: right;">
+            <% if (!currentUser) { %>
+                <a href="/login">ログイン</a>
+                <a href="/users/new">新規登録</a>
+            <% } else { %>
+                <p><%= currentUser.name %>でログイン中</p>
+                <form action="/logout" method="post">
+                    <input type="hidden" name="_method" value="delete">
+                    <input type="submit" value="ログアウト">
+                </form>
+            <% } %> 
+        </div>
+    </header>

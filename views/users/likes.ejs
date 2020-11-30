@@ -1,22 +1,4 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>メッセージボード</title>
-</head>
-<body>
-    <header>
-        <% if (!currentUser) { %>
-            <a href="/login">ログイン</a>
-            <a href="/users/new">新規登録</a>
-        <% } else { %>
-            <form action="/logout" method="post">
-                <input type="hidden" name="_method" value="delete">
-                <input type="submit" value="ログアウト">
-            </form>
-        <% } %> 
-    </header>
+<%- include('../partials/header'); %>
     <h1><%= user.name %></h1>
     <h2>いいね</h2>
     <ul>
